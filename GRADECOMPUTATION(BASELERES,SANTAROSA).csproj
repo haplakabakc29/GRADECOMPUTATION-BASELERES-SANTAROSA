@@ -8,4 +8,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="GradeComputationAppServices\GradeComputationAppServices.csproj" />
+    <ProjectReference Include="GradeComputationDataServices\GradeComputationDataServices.csproj" />
+  </ItemGroup>
+
 </Project>
