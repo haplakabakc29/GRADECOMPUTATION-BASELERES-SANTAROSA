@@ -8,43 +8,73 @@ namespace GradeComputation
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("-------------------------------------------------------------------------------");
-            Console.WriteLine("-----------------------GRADE COMPUTATION AY: 2025-2026-------------------------");
-            Console.WriteLine("-------------------------------------------------------------------------------");
-            Console.WriteLine("------------------WELCOME TO PUPSIS GRADE COMPUTATION PAGE!--------------------");
-            Console.WriteLine("-------------------------------------------------------------------------------");
-            Console.WriteLine();
-            Console.WriteLine("-------------------------------------------------------------------------------");
-            Console.WriteLine("WHAT DO YOU WANT TO DO?");
-            Console.WriteLine("1. COMPUTE FOR MIDTERM");
-            Console.WriteLine("2. COMPUTE FOR FINALS");
-            Console.WriteLine("3. VIEW FINAL-FINAL GRADE");
-            Console.WriteLine("4. EXIT");
+            bool stayInProgram = true;
 
-            Console.Write("ENTER CHOICE: ");
-            string choice = Console.ReadLine();
-
-            switch (choice)
+            while (stayInProgram)
             {
-                case "1":
-                    Console.WriteLine("MIDTERM COMPUTATION");
-                    subjectName();
-                    computeGrade();
-                    GradeData.midtermGrade = calculateGrade();
-                    break;
-                case "2":
-                    Console.WriteLine("FINALS COMPUTATION");
-                    subjectName();
-                    computeGrade();
-                    GradeData.finalsGrade = calculateGrade();
-                    break;
-                case "3":
-                    Console.WriteLine("FINAL-FINAL GRADE");
-                    computeFinalFinalGrade();
-                    break;
-                case "4":
-                    Console.WriteLine("EXITING GOODBYE!!");
-                    break;
+                Console.WriteLine("-------------------------------------------------------------------------------");
+                Console.WriteLine("-----------------------GRADE COMPUTATION AY: 2025-2026-------------------------");
+                Console.WriteLine("-------------------------------------------------------------------------------");
+                Console.WriteLine("------------------WELCOME TO PUPSIS GRADE COMPUTATION PAGE!--------------------");
+                Console.WriteLine("-------------------------------------------------------------------------------");
+                Console.WriteLine();
+                Console.WriteLine("-------------------------------------------------------------------------------");
+                Console.WriteLine("WHAT DO YOU WANT TO DO?");
+                Console.WriteLine("1. COMPUTE FOR MIDTERM");
+                Console.WriteLine("2. COMPUTE FOR FINALS");
+                Console.WriteLine("3. VIEW FINAL-FINAL GRADE");
+                Console.WriteLine("4. EXIT");
+
+                Console.Write("ENTER CHOICE: ");
+                string choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    case "1":
+                        Console.WriteLine("\nMIDTERM COMPUTATION");
+                        subjectName();
+                        computeGrade();
+                        GradeData.midtermGrade = calculateGrade();
+
+                        Console.Write("\nDo you want to compute for another grade? (Y/N): ");
+                        if (Console.ReadLine().ToUpper() != "Y")
+                        {
+                            Console.WriteLine("\nThank you for using the Grade Computation Page! Goodbye.");
+                            stayInProgram = false;
+                        }
+                        break;
+
+                    case "2":
+                        Console.WriteLine("\nFINALS COMPUTATION");
+                        subjectName();
+                        computeGrade();
+                        GradeData.finalsGrade = calculateGrade();
+
+                        Console.Write("\nDo you want to compute for another grade? (Y/N): ");
+                        if (Console.ReadLine().ToUpper() != "Y")
+                        {
+                            Console.WriteLine("\nThank you for using the Grade Computation Page! Goodbye.");
+                            stayInProgram = false;
+                        }
+                        break;
+
+                    case "3":
+                        Console.WriteLine("\nFINAL-FINAL GRADE");
+                        computeFinalFinalGrade();
+
+                        Console.Write("\nDo you want to compute for another grade? (Y/N): ");
+                        if (Console.ReadLine().ToUpper() != "Y")
+                        {
+                            Console.WriteLine("\nThank you for using the Grade Computation Page! Goodbye.");
+                            stayInProgram = false;
+                        }
+                        break;
+
+                    case "4":
+                        Console.WriteLine("EXITING GOODBYE!!");
+                        stayInProgram = false;
+                        break;
+                }
             }
         }
 
@@ -56,7 +86,6 @@ namespace GradeComputation
 
         static void computeGrade()
         {
-
             Console.Write("Enter SEATWORK 1 1/10: ");
             GradeData.sw1 = double.Parse(Console.ReadLine());
             Console.Write("Enter SEATWORK 2 1/10: ");
@@ -75,7 +104,6 @@ namespace GradeComputation
 
         static double calculateGrade()
         {
-
             double finalGrade = GradeCalculator.calculateGrade(
                 GradeData.sw1, GradeData.sw2, GradeData.qz1, GradeData.qz2,
                 GradeData.assign, GradeData.lab, GradeData.exam);
