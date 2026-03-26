@@ -8,6 +8,8 @@ namespace GradeComputation
     {
         static void Main(string[] args)
         {
+            GradeData.LoadData();
+
             bool stayInProgram = true;
 
             while (stayInProgram)
@@ -19,7 +21,7 @@ namespace GradeComputation
                 Console.WriteLine("-------------------------------------------------------------------------------");
                 Console.WriteLine();
                 Console.WriteLine("-------------------------------------------------------------------------------");
-                Console.WriteLine("WHAT DO YOU WANT TO DO?");
+                Console.WriteLine("WHAT DO YOU WANT TO DO?");   
                 Console.WriteLine("1. COMPUTE FOR MIDTERM");
                 Console.WriteLine("2. COMPUTE FOR FINALS");
                 Console.WriteLine("3. VIEW FINAL-FINAL GRADE");
@@ -35,13 +37,8 @@ namespace GradeComputation
                         subjectName();
                         computeGrade();
                         GradeData.midtermGrade = calculateGrade();
-
-                        Console.Write("\nDo you want to compute for another grade? (Y/N): ");
-                        if (Console.ReadLine().ToUpper() != "Y")
-                        {
-                            Console.WriteLine("\nThank you for using the Grade Computation Page! Goodbye.");
-                            stayInProgram = false;
-                        }
+                        GradeData.SaveData();
+                        CheckContinue(ref stayInProgram);
                         break;
 
                     case "2":
@@ -49,25 +46,14 @@ namespace GradeComputation
                         subjectName();
                         computeGrade();
                         GradeData.finalsGrade = calculateGrade();
-
-                        Console.Write("\nDo you want to compute for another grade? (Y/N): ");
-                        if (Console.ReadLine().ToUpper() != "Y")
-                        {
-                            Console.WriteLine("\nThank you for using the Grade Computation Page! Goodbye.");
-                            stayInProgram = false;
-                        }
+                        GradeData.SaveData();
+                        CheckContinue(ref stayInProgram);
                         break;
 
                     case "3":
                         Console.WriteLine("\nFINAL-FINAL GRADE");
                         computeFinalFinalGrade();
-
-                        Console.Write("\nDo you want to compute for another grade? (Y/N): ");
-                        if (Console.ReadLine().ToUpper() != "Y")
-                        {
-                            Console.WriteLine("\nThank you for using the Grade Computation Page! Goodbye.");
-                            stayInProgram = false;
-                        }
+                        CheckContinue(ref stayInProgram);
                         break;
 
                     case "4":
@@ -78,10 +64,20 @@ namespace GradeComputation
             }
         }
 
+        static void CheckContinue(ref bool stay)
+        {
+            Console.Write("\nDo you want to compute for another grade? (Y/N): ");
+            if (Console.ReadLine().ToUpper() != "Y")
+            {
+                Console.WriteLine("\nThank you for using the Grade Computation Page! Goodbye.");
+                stay = false;
+            }
+        }
+
         static void subjectName()
         {
             Console.Write("ENTER SUBJECT NAME: ");
-            string name = Console.ReadLine();
+            GradeData.subjectName = Console.ReadLine();
         }
 
         static void computeGrade()
@@ -131,6 +127,7 @@ namespace GradeComputation
             double finalFinalGrade = GradeCalculator.calculateFinalFinalGrade(GradeData.midtermGrade, GradeData.finalsGrade);
 
             Console.WriteLine("-------------------------------------------------------------------------------");
+            Console.WriteLine("SUBJECT: " + GradeData.subjectName);
             Console.WriteLine("Your FINAL-FINAL grade is: " + finalFinalGrade);
             Console.WriteLine("-------------------------------------------------------------------------------");
         }
