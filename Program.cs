@@ -1,7 +1,6 @@
 ﻿using System;
 using GradeComputationAppServices;
 using GradeComputationDataServices;
-using GradeComputationDataModel;
 
 namespace GradeComputation
 {
