@@ -21,7 +21,7 @@ namespace GradeComputation
                 Console.WriteLine("-------------------------------------------------------------------------------");
                 Console.WriteLine();
                 Console.WriteLine("-------------------------------------------------------------------------------");
-                Console.WriteLine("WHAT DO YOU WANT TO DO?");   
+                Console.WriteLine("WHAT DO YOU WANT TO DO?");
                 Console.WriteLine("1. COMPUTE FOR MIDTERM");
                 Console.WriteLine("2. COMPUTE FOR FINALS");
                 Console.WriteLine("3. VIEW FINAL-FINAL GRADE");
