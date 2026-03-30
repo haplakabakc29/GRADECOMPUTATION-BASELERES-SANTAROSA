@@ -30,8 +30,6 @@ namespace GradeComputationDataServices
             sqlConnection.Open();
             insertCommand.ExecuteNonQuery();
             sqlConnection.Close();
-
-            Console.WriteLine("[SQL] Data successfully saved to GradesPup table.");
         }
     }
 }

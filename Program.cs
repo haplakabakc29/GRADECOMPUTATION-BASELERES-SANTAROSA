@@ -25,7 +25,9 @@ namespace GradeComputation
                 Console.WriteLine("1. COMPUTE FOR MIDTERM");
                 Console.WriteLine("2. COMPUTE FOR FINALS");
                 Console.WriteLine("3. VIEW FINAL-FINAL GRADE");
-                Console.WriteLine("4. EXIT");
+                Console.WriteLine("4. VIEW HISTORY"); 
+                Console.WriteLine("5. DELETE LOCAL HISTORY"); 
+                Console.WriteLine("6. EXIT");
 
                 Console.Write("ENTER CHOICE: ");
                 string choice = Console.ReadLine();
@@ -57,6 +59,22 @@ namespace GradeComputation
                         break;
 
                     case "4":
+                        Console.WriteLine("\n--- SHOWING SAVED HISTORY ---");
+                        GradeData.ViewHistory();
+                        CheckContinue(ref stayInProgram);
+                        break;
+
+                    case "5":
+                        Console.Write("\nAre you sure you want to delete local history(JSON FILE)? (Y/N): ");
+                        if (Console.ReadLine().ToUpper() == "Y")
+                        {
+                            GradeData.DeleteHistory();
+                            Console.WriteLine("Local history has been cleared.");
+                        }
+                        CheckContinue(ref stayInProgram);
+                        break;
+
+                    case "6":
                         Console.WriteLine("EXITING GOODBYE!!");
                         stayInProgram = false;
                         break;

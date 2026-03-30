@@ -11,32 +11,23 @@ namespace GradeComputationDataServices
 
         public static void SaveToFile(List<GradeModel> allGrades)
         {
-            try
-            {
-                string jsonString = JsonSerializer.Serialize(allGrades, new JsonSerializerOptions { WriteIndented = true });
-                File.WriteAllText(filePath, jsonString);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("\n[FILE ERROR] Could not save: " + ex.Message);
-            }
+            string jsonString = JsonSerializer.Serialize(allGrades, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(filePath, jsonString);
         }
 
         public static List<GradeModel> LoadFromFile()
         {
             if (File.Exists(filePath))
             {
-                try
-                {
-                    string jsonString = File.ReadAllText(filePath);
-                    return JsonSerializer.Deserialize<List<GradeModel>>(jsonString) ?? new List<GradeModel>();
-                }
-                catch
-                {
-                    return new List<GradeModel>();
-                }
+                string jsonString = File.ReadAllText(filePath);
+                return JsonSerializer.Deserialize<List<GradeModel>>(jsonString) ?? new List<GradeModel>();
             }
             return new List<GradeModel>();
+        }
+
+        public static void ClearHistory()
+        {
+            if (File.Exists(filePath)) File.Delete(filePath);
         }
     }
 }
