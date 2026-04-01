@@ -2,32 +2,59 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
+using System.Linq;
 
 namespace GradeComputationDataServices
 {
-    public class GradeJSONData
+    public class GradeJSONData : IGradeMngDataService
     {
-        private static string filePath = "grades.json";
+        private static string _jsonFileName = "grades.json";
 
-        public static void SaveToFile(List<GradeModel> allGrades)
+        public void AddLog(DModels account)
         {
-            string jsonString = JsonSerializer.Serialize(allGrades, new JsonSerializerOptions { WriteIndented = true });
-            File.WriteAllText(filePath, jsonString);
+            List<DModels> allGrades = LoadFromFile();
+            allGrades.Add(account);
+            SaveToFile(allGrades);
         }
 
-        public static List<GradeModel> LoadFromFile()
+        public List<DModels> GetGradeLogs()
         {
-            if (File.Exists(filePath))
+            return LoadFromFile();
+        }
+
+        public void DeleteAll()
+        {
+            ClearHistory();
+        }
+
+        public static void SaveToFile(List<DModels> allGrades)
+        {
+            using (var outputStream = File.Create(_jsonFileName))
             {
-                string jsonString = File.ReadAllText(filePath);
-                return JsonSerializer.Deserialize<List<GradeModel>>(jsonString) ?? new List<GradeModel>();
+                JsonSerializer.Serialize<List<DModels>>(
+                    new Utf8JsonWriter(outputStream, new JsonWriterOptions { Indented = true }),
+                    allGrades);
             }
-            return new List<GradeModel>();
+        }
+
+        public static List<DModels> LoadFromFile()
+        {
+            List<DModels> accounts = new List<DModels>();
+            if (!File.Exists(_jsonFileName)) return accounts;
+
+            using (var jsonFileReader = File.OpenText(_jsonFileName))
+            {
+                accounts = JsonSerializer.Deserialize<List<DModels>>(
+                    jsonFileReader.ReadToEnd(),
+                    new JsonSerializerOptions { PropertyNameCaseInsensitive = true })
+                    .ToList();
+            }
+            return accounts;
         }
 
         public static void ClearHistory()
         {
-            if (File.Exists(filePath)) File.Delete(filePath);
+            if (File.Exists(_jsonFileName)) File.Delete(_jsonFileName);
         }
     }
 }

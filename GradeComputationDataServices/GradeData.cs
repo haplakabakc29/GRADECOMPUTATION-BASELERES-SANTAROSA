@@ -5,7 +5,7 @@ namespace GradeComputationDataServices
 {
     public class GradeData
     {
-        public static List<GradeModel> allGrades = new List<GradeModel>();
+        public static List<DModels> allGrades = new List<DModels>();
         public static double sw1, sw2, qz1, qz2, assign, lab, exam;
         public static double midtermGrade = 0, finalsGrade = 0;
         public static string subjectName = "";
@@ -20,9 +20,7 @@ namespace GradeComputationDataServices
 
         public static void SaveData()
         {
-            GradeSQLData.SaveToDatabase(); 
-
-            GradeModel newEntry = new GradeModel
+            DModels newEntry = new DModels
             {
                 SubjectName = subjectName,
                 Sw1 = sw1,
@@ -36,8 +34,11 @@ namespace GradeComputationDataServices
                 FinalsGrade = finalsGrade
             };
 
+      
+            new GradeSQLData().AddLog(newEntry);
+            
             allGrades.Add(newEntry);
-            GradeJSONData.SaveToFile(allGrades); 
+            GradeJSONData.SaveToFile(allGrades);
         }
 
         public static void ViewHistory()
