@@ -17,6 +17,23 @@ namespace GradeComputationDataServices
             SaveToFile(allGrades);
         }
 
+        public void UpdateGrade(DModels account)
+        {
+
+            List<DModels> currentGrades = LoadFromFile();
+
+            foreach (DModels g in currentGrades)
+            {
+                if (g.SubjectName == account.SubjectName)
+                {
+                    g.MidtermGrade = account.MidtermGrade;
+                    g.FinalsGrade = account.FinalsGrade;
+                    SaveToFile(currentGrades);
+                    return;
+                }
+            }
+        }
+
         public List<DModels> GetGradeLogs()
         {
             return LoadFromFile();

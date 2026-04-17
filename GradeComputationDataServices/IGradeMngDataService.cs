@@ -6,8 +6,10 @@ namespace GradeComputationDataServices
 {
     public interface IGradeMngDataService
     {
-       public void AddLog(DModels account);
-       public List<DModels> GetGradeLogs();
-       public void DeleteAll();
+        void AddLog(DModels account);
+        List<DModels> GetGradeLogs();
+        void DeleteAll();
+        void UpdateGrade(DModels account);
     }
 }
+

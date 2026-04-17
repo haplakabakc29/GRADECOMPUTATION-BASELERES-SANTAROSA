@@ -10,27 +10,43 @@ namespace GradeComputationDataServices
 
         public void AddLog(DModels grade)
         {
-            SqlConnection sqlConnection = new SqlConnection(connString);
+            using (SqlConnection sqlConnection = new SqlConnection(connString))
+            {
+                string insertStatement = "INSERT INTO GradesPup (SubjectName, Sw1, Sw2, Qz1, Qz2, Assign, Lab, Exam, MidtermGrade, FinalsGrade) " +
+                                         "VALUES (@SubjectName, @Sw1, @Sw2, @Qz1, @Qz2, @Assign, @Lab, @Exam, @MidtermGrade, @FinalsGrade)";
 
-            string insertStatement = "INSERT INTO GradesPup (SubjectName, Sw1, Sw2, Qz1, Qz2, Assign, Lab, Exam, MidtermGrade, FinalsGrade) " +
-                                     "VALUES (@SubjectName, @Sw1, @Sw2, @Qz1, @Qz2, @Assign, @Lab, @Exam, @MidtermGrade, @FinalsGrade)";
+                SqlCommand cmd = new SqlCommand(insertStatement, sqlConnection);
+                cmd.Parameters.AddWithValue("@SubjectName", grade.SubjectName);
+                cmd.Parameters.AddWithValue("@Sw1", grade.Sw1);
+                cmd.Parameters.AddWithValue("@Sw2", grade.Sw2);
+                cmd.Parameters.AddWithValue("@Qz1", grade.Qz1);
+                cmd.Parameters.AddWithValue("@Qz2", grade.Qz2);
+                cmd.Parameters.AddWithValue("@Assign", grade.Assign);
+                cmd.Parameters.AddWithValue("@Lab", grade.Lab);
+                cmd.Parameters.AddWithValue("@Exam", grade.Exam);
+                cmd.Parameters.AddWithValue("@MidtermGrade", grade.MidtermGrade);
+                cmd.Parameters.AddWithValue("@FinalsGrade", grade.FinalsGrade);
 
-            SqlCommand insertCommand = new SqlCommand(insertStatement, sqlConnection);
+                sqlConnection.Open();
+                cmd.ExecuteNonQuery();
+                sqlConnection.Close();
+            }
+        }
 
-            insertCommand.Parameters.AddWithValue("@SubjectName", grade.SubjectName);
-            insertCommand.Parameters.AddWithValue("@Sw1", grade.Sw1.ToString());
-            insertCommand.Parameters.AddWithValue("@Sw2", grade.Sw2.ToString());
-            insertCommand.Parameters.AddWithValue("@Qz1", grade.Qz1.ToString());
-            insertCommand.Parameters.AddWithValue("@Qz2", grade.Qz2.ToString());
-            insertCommand.Parameters.AddWithValue("@Assign", grade.Assign.ToString());
-            insertCommand.Parameters.AddWithValue("@Lab", grade.Lab.ToString());
-            insertCommand.Parameters.AddWithValue("@Exam", grade.Exam.ToString());
-            insertCommand.Parameters.AddWithValue("@MidtermGrade", grade.MidtermGrade.ToString());
-            insertCommand.Parameters.AddWithValue("@FinalsGrade", grade.FinalsGrade.ToString());
+        public void UpdateGrade(DModels grade)
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(connString))
+            {
+                string query = "UPDATE GradesPup SET MidtermGrade = @Mid, FinalsGrade = @Fin WHERE SubjectName = @Sub";
+                SqlCommand cmd = new SqlCommand(query, sqlConnection);
+                cmd.Parameters.AddWithValue("@Sub", grade.SubjectName);
+                cmd.Parameters.AddWithValue("@Mid", grade.MidtermGrade);
+                cmd.Parameters.AddWithValue("@Fin", grade.FinalsGrade);
 
-            sqlConnection.Open();
-            insertCommand.ExecuteNonQuery();
-            sqlConnection.Close();
+                sqlConnection.Open();
+                cmd.ExecuteNonQuery();
+                sqlConnection.Close();
+            }
         }
 
         public List<DModels> GetGradeLogs()

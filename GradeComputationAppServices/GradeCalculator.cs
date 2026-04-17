@@ -17,5 +17,13 @@
         {
             return (m + f) / 2.0;
         }
+
+        public static string GetEquivalent(double finalGrade)
+        {
+            if (finalGrade >= 90) return "1.0 (Excellent)";
+            if (finalGrade >= 80) return "2.0 (Good)";
+            if (finalGrade >= 70) return "3.0 (Fair)";
+            return "5.0 (Failed)";
+        }
     }
 }

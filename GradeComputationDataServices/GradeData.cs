@@ -34,11 +34,17 @@ namespace GradeComputationDataServices
                 FinalsGrade = finalsGrade
             };
 
-      
+        
             new GradeSQLData().AddLog(newEntry);
             
             allGrades.Add(newEntry);
             GradeJSONData.SaveToFile(allGrades);
+        }
+        public static void SyncUpdate(string sub, double mid, double fin)
+        {
+            DModels updatedInfo = new DModels { SubjectName = sub, MidtermGrade = mid, FinalsGrade = fin };
+            new GradeSQLData().UpdateGrade(updatedInfo);
+            new GradeJSONData().UpdateGrade(updatedInfo);
         }
 
         public static void ViewHistory()

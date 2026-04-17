@@ -25,9 +25,10 @@ namespace GradeComputation
                 Console.WriteLine("1. COMPUTE FOR MIDTERM");
                 Console.WriteLine("2. COMPUTE FOR FINALS");
                 Console.WriteLine("3. VIEW FINAL-FINAL GRADE");
-                Console.WriteLine("4. VIEW HISTORY"); 
-                Console.WriteLine("5. DELETE LOCAL HISTORY"); 
-                Console.WriteLine("6. EXIT");
+                Console.WriteLine("4. VIEW HISTORY");
+                Console.WriteLine("5. DELETE LOCAL HISTORY");
+                Console.WriteLine("6. UPDATE GRADE RECORD"); // Added for your CRUD requirement
+                Console.WriteLine("7. EXIT");
 
                 Console.Write("ENTER CHOICE: ");
                 string choice = Console.ReadLine();
@@ -75,6 +76,20 @@ namespace GradeComputation
                         break;
 
                     case "6":
+                        Console.WriteLine("\nUPDATE GRADE RECORD");
+                        Console.Write("ENTER SUBJECT NAME TO UPDATE: ");
+                        string sub = Console.ReadLine();
+                        Console.Write("ENTER NEW MIDTERM GRADE: ");
+                        double m = double.Parse(Console.ReadLine());
+                        Console.Write("ENTER NEW FINALS GRADE: ");
+                        double f = double.Parse(Console.ReadLine());
+
+                        GradeData.SyncUpdate(sub, m, f);
+                        Console.WriteLine("Records updated successfully!");
+                        CheckContinue(ref stayInProgram);
+                        break;
+
+                    case "7":
                         Console.WriteLine("EXITING GOODBYE!!");
                         stayInProgram = false;
                         break;
@@ -126,10 +141,8 @@ namespace GradeComputation
             Console.WriteLine("Your computed grade is: " + finalGrade);
             Console.WriteLine("-------------------------------------------------------------------------------");
 
-            if (finalGrade >= 90) Console.WriteLine("Equivalent Grade: 1.0 (Excellent)");
-            else if (finalGrade >= 80) Console.WriteLine("Equivalent Grade: 2.0 (Good)");
-            else if (finalGrade >= 70) Console.WriteLine("Equivalent Grade: 3.0 (Fair)");
-            else Console.WriteLine("Equivalent Grade: 5.0 (Failed)");
+
+            Console.WriteLine("Equivalent Grade: " + GradeCalculator.GetEquivalent(finalGrade));
 
             return finalGrade;
         }
