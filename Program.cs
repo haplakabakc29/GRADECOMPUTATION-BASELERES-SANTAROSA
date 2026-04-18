@@ -27,7 +27,7 @@ namespace GradeComputation
                 Console.WriteLine("3. VIEW FINAL-FINAL GRADE");
                 Console.WriteLine("4. VIEW HISTORY");
                 Console.WriteLine("5. DELETE LOCAL HISTORY");
-                Console.WriteLine("6. UPDATE GRADE RECORD"); // Added for your CRUD requirement
+                Console.WriteLine("6. UPDATE GRADE RECORD"); 
                 Console.WriteLine("7. EXIT");
 
                 Console.Write("ENTER CHOICE: ");
