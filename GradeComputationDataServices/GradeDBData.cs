@@ -2,6 +2,7 @@
 using Microsoft.Data.SqlClient;
 using System.Collections.Generic;
 
+
 namespace GradeComputationDataServices
 {
     public class GradeSQLData : IGradeMngDataService
@@ -12,10 +13,11 @@ namespace GradeComputationDataServices
         {
             using (SqlConnection sqlConnection = new SqlConnection(connString))
             {
-                string insertStatement = "INSERT INTO GradesPup (SubjectName, Sw1, Sw2, Qz1, Qz2, Assign, Lab, Exam, MidtermGrade, FinalsGrade) " +
-                                         "VALUES (@SubjectName, @Sw1, @Sw2, @Qz1, @Qz2, @Assign, @Lab, @Exam, @MidtermGrade, @FinalsGrade)";
+                string insertStatement = "INSERT INTO GradesPup (StudentName, SubjectName, Sw1, Sw2, Qz1, Qz2, Assign, Lab, Exam, MidtermGrade, FinalsGrade) " +
+                                 "VALUES (@StudentName, @SubjectName, @Sw1, @Sw2, @Qz1, @Qz2, @Assign, @Lab, @Exam, @MidtermGrade, @FinalsGrade)";
 
                 SqlCommand cmd = new SqlCommand(insertStatement, sqlConnection);
+                cmd.Parameters.AddWithValue("@StudentName", grade.StudentName);
                 cmd.Parameters.AddWithValue("@SubjectName", grade.SubjectName);
                 cmd.Parameters.AddWithValue("@Sw1", grade.Sw1);
                 cmd.Parameters.AddWithValue("@Sw2", grade.Sw2);
@@ -51,11 +53,20 @@ namespace GradeComputationDataServices
 
         public List<DModels> GetGradeLogs()
         {
-            return new List<DModels>(); 
+            return new List<DModels>();
         }
         public void DeleteAll()
         {
-          
+            using (SqlConnection sqlConnection = new SqlConnection(connString))
+            {
+                string truncateQuery = "TRUNCATE TABLE dbo.GradesPup";
+                SqlCommand cmd = new SqlCommand(truncateQuery, sqlConnection);
+
+                sqlConnection.Open();
+                cmd.ExecuteNonQuery();
+                sqlConnection.Close();
+
+            }
         }
     }
 }

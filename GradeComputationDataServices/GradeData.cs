@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
+
 namespace GradeComputationDataServices
 {
     public class GradeData
@@ -9,6 +10,7 @@ namespace GradeComputationDataServices
         public static double sw1, sw2, qz1, qz2, assign, lab, exam;
         public static double midtermGrade = 0, finalsGrade = 0;
         public static string subjectName = "";
+        public static string studentName = "";
 
         public static void ResetData()
         {
@@ -22,6 +24,7 @@ namespace GradeComputationDataServices
         {
             DModels newEntry = new DModels
             {
+                StudentName = studentName,
                 SubjectName = subjectName,
                 Sw1 = sw1,
                 Sw2 = sw2,
@@ -49,9 +52,10 @@ namespace GradeComputationDataServices
 
         public static void ViewHistory()
         {
+            if (allGrades.Count == 0) Console.WriteLine("No history found.");
             foreach (var g in allGrades)
             {
-                Console.WriteLine("Subject: " + g.SubjectName + " | Grade MIDTERM: " + g.MidtermGrade + " | Grade Finals: " + g.FinalsGrade);
+                Console.WriteLine("Student: " + g.StudentName + "Subject: " + g.SubjectName + " | Grade MIDTERM: " + g.MidtermGrade + " | Grade Finals: " + g.FinalsGrade);
             }
         }
 

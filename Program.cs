@@ -109,6 +109,8 @@ namespace GradeComputation
 
         static void subjectName()
         {
+            Console.Write("ENTER STUDENT NAME: "); 
+            GradeData.studentName = Console.ReadLine();
             Console.Write("ENTER SUBJECT NAME: ");
             GradeData.subjectName = Console.ReadLine();
         }
