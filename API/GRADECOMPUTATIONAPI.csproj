@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.5" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="7.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="GradeComputationAppServices">
+      <HintPath>..\..\GRADECOMPUTATION(BASELERES,SANTAROSA)\GRADECOMPUTATION(BASELERES,SANTAROSA)\GradeComputationAppServices\bin\Debug\net10.0\GradeComputationAppServices.dll</HintPath>
+    </Reference>
+    <Reference Include="GradeComputationDataModel">
+      <HintPath>..\..\GRADECOMPUTATION(BASELERES,SANTAROSA)\GRADECOMPUTATION(BASELERES,SANTAROSA)\GradeComputationDataModel\bin\Debug\net10.0\GradeComputationDataModel.dll</HintPath>
+    </Reference>
+    <Reference Include="GradeComputationDataServices">
+      <HintPath>..\..\GRADECOMPUTATION(BASELERES,SANTAROSA)\GRADECOMPUTATION(BASELERES,SANTAROSA)\GradeComputationDataServices\bin\Debug\net10.0\GradeComputationDataServices.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
